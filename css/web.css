@@ -1,0 +1,109 @@
+/* Screen layer on top of book.css (the print stylesheet): turns A4 pages into a responsive web page. */
+html { scroll-behavior: smooth; scroll-padding-top: 72px; background: var(--cream); }
+body { font-size: 17px; line-height: 1.9; overflow-x: hidden; }
+img, svg { max-width: 100%; }
+
+/* ---------- top bar ---------- */
+.topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 20px; background: rgba(59,34,24,.96); backdrop-filter: blur(6px); color: var(--cream); }
+.topbar a { color: var(--cream); text-decoration: none; font: 600 14px "Cairo", sans-serif; white-space: nowrap; }
+.topbar .brand { font-weight: 800; font-size: 16px; }
+.topbar nav { display: flex; gap: 16px; align-items: center; }
+.topbar nav a:hover { color: #e6c27a; }
+.topbar .pdf { background: var(--caramel); color: #fff; padding: 6px 14px; border-radius: 999px; }
+.topbar .pdf:hover { background: #d79c69; color: #fff; }
+
+/* ---------- reading column ---------- */
+.book { max-width: 880px; margin: 0 auto; padding: 0 24px 40px; }
+.book > section { margin-top: 56px; }
+.page-break { break-before: auto; }
+
+/* full-bleed cover and chapter openers */
+.cover, .opener { position: relative; width: 100vw; margin-inline: calc(50% - 50vw); }
+.cover { height: min(92vh, 900px); margin-top: 0 !important; }
+.cover .inner { left: 24px; right: 24px; bottom: 9vh; max-width: 760px; margin: 0 auto; }
+.cover h1 { font-size: clamp(38px, 7vw, 64px); }
+.cover .en-title { font-size: clamp(22px, 3.6vw, 34px); }
+.cover .sub { font-size: clamp(15px, 2vw, 19px); }
+.cover .tags span { font-size: 13px; padding: 4px 14px; }
+.cover .credit { font-size: 11px; }
+
+.opener { height: auto; overflow: hidden; padding-bottom: 48px; margin-top: 72px !important; }
+.opener img.bg { position: relative; height: clamp(240px, 46vw, 460px); }
+.opener .fade { height: clamp(244px, calc(46vw + 4px), 464px); }
+.opener .body { position: relative; top: auto; left: auto; right: auto; max-width: 832px; margin: -70px auto 0; padding: 0 24px; }
+.opener .credit { top: 10px; left: 12px; font-size: 10px; }
+.opener.noimg { padding-top: 120px; }
+.opener.noimg .body { top: auto; margin-top: 0; }
+.opener h2 { font-size: clamp(30px, 5vw, 46px); }
+.opener .en { font-size: clamp(18px, 2.6vw, 24px); text-align: right; }
+.opener .intro { font-size: 18px; max-width: none; }
+.opener .inside li { font-size: 15px; }
+.opener .bignum { top: 30px; font-size: 160px; }
+
+/* sections and cards breathe instead of breaking pages */
+.drink, .method { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--line); }
+h2 { scroll-margin-top: 72px; }
+figure img[style] { height: auto !important; aspect-ratio: 4 / 3; }
+figcaption { font-size: 13px; }
+figcaption .cr, .hcard .ph .cr, .tool .cr, .opener .credit, .cover .credit { font-size: 11px; }
+.callout .txt, .fact .val, .hcard .row, .steps li, .tool p, .vs .note, .term .def { font-size: 16px; }
+.meter, .badge, .spec .k { font-size: 12px; }
+table { font-size: 15px; }
+th { font-size: 14px; }
+.credits-table td { font-size: 12px; }
+.refs li { font-size: 15px; }
+.refs .url { font-size: 13px; }
+
+/* TOC: no page numbers on the web */
+.toc .pg, .toc .fill { display: none; }
+.toc .row { padding: 10px 0; }
+.toc .row:hover .t { color: var(--caramel); }
+.toc .t { font-size: 17px; }
+
+/* ---------- footer ---------- */
+.site-foot { max-width: 880px; margin: 0 auto; padding: 24px; border-top: 1px solid var(--line);
+  font: 400 14px/1.8 "Cairo", sans-serif; color: var(--muted); text-align: center; }
+.site-foot a { color: var(--coffee); }
+.totop { position: fixed; bottom: 20px; left: 20px; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--espresso); color: #e6c27a; display: grid; place-items: center; text-decoration: none;
+  font: 800 20px "Cairo"; box-shadow: 0 4px 14px rgba(0,0,0,.25); z-index: 15; }
+
+/* ---------- tablet ---------- */
+@media (max-width: 820px) {
+  .grid3 { grid-template-columns: 1fr 1fr; }
+  .specs { grid-template-columns: repeat(2, 1fr); }
+  .hcard { grid-template-columns: 200px 1fr; }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .book { padding: 0 16px 32px; }
+  .topbar { padding: 8px 16px; }
+  .topbar nav a:not(.pdf) { display: none; }
+  .topbar .pdf { padding: 5px 12px; font-size: 13px; }
+  .topbar .brand { font-size: 15px; }
+  .cover .inner { left: 16px; right: 16px; }
+  .opener .body { padding: 0 16px; margin-top: -40px; }
+  .opener .inside ul { columns: 1; }
+  .howto, .grid2, .grid3, .drink-media, .facts, .method .pair, .proscons, .tools, .chooser, .hcard { grid-template-columns: 1fr; }
+  .hcard .ph { max-width: 420px; }
+  .gloss { columns: 1; }
+  .drink-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .drink-head .names .ar { font-size: 26px; }
+  .vs .cups { flex-wrap: wrap; }
+  .vs .cups > div { flex: 1 1 40%; }
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .credits-table td.u { word-break: break-all; }
+  .totop { bottom: 14px; left: 14px; }
+}
+
+/* polish */
+.drink-media { align-items: start; }
+.toc .t .en { display: inline-block; margin-inline-start: 10px; }
+.totop { opacity: .85; }
+@media (max-width: 600px) {
+  .toc .t .en { display: block; margin-inline-start: 0; line-height: 1.4; }
+  .totop { width: 40px; height: 40px; }
+}
